@@ -1,7 +1,7 @@
 FROM reginfell/fastlane
 
-ENV ANDROID_NDK /opt/android-ndk-linux
-ENV ANDROID_NDK_HOME /opt/android-ndk-linux
+ENV ANDROID_NDK ./android-ndk-linux
+ENV ANDROID_NDK_HOME ./android-ndk-linux
 
 RUN apk update
 RUN apk add unzip \
