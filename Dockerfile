@@ -4,7 +4,7 @@ ENV ANDROID_NDK /opt/android-ndk-linux
 ENV ANDROID_NDK_HOME /opt/android-ndk-linux
 
 RUN apk update
-RUN apk install unzip \
+RUN apk add unzip \
 	wget
 	
 RUN wget -q --output-document=android-ndk.zip https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip && \
