@@ -7,7 +7,6 @@ RUN apk update
 RUN apk add unzip \
 	wget
 	
-RUN mkdir /opt
 RUN cd /opt && \
 	wget -q --output-document=android-ndk.zip https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip && \
 	unzip android-ndk.zip && \
