@@ -4,8 +4,8 @@ ENV ANDROID_NDK /opt/android-ndk-linux
 ENV ANDROID_NDK_HOME /opt/android-ndk-linux
 
 
-RUN apt-get update && \
-	apt-get install -y --no-install-recommends \
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends \
 	unzip \
 	wget
 	
