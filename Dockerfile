@@ -4,7 +4,7 @@ ENV ANDROID_NDK /opt/android-ndk-linux
 ENV ANDROID_NDK_HOME /opt/android-ndk-linux
 
 RUN apk update
-RUN apk install -y --no-install-recommends \
+RUN apk install --no-install-recommends \
 	unzip \
 	wget
 	
