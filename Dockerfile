@@ -1,7 +1,7 @@
 FROM reginfell/fastlane
 
-ENV ANDROID_NDK /opt/android-ndk-linux
-ENV ANDROID_NDK_HOME /opt/android-ndk-linux
+ENV ANDROID_NDK /android-ndk-linux
+ENV ANDROID_NDK_HOME /android-ndk-linux
 ENV ANDROID_TARGET_SDK="android-27" \
 	ANDROID_BUILD_TOOLS="build-tools-27.0.3"
 
