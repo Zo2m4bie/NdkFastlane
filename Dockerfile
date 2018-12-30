@@ -26,9 +26,16 @@ RUN cd /opt && \
 # add to PATH
 ENV PATH ${PATH}:${ANDROID_NDK_HOME}
 
-#RUN /bin/bash ${ANDROID_NDK}/build/tools/make-standalone-toolchain.sh \
-#--arch=arm \
-#--platform=android-27 \
-#--install-dir=/opt/android \
 
-#COPY toolchain.cmake .
+# Android Cmake
+RUN wget -q https://dl.google.com/android/repository/cmake-3.6.3155560-linux-x86_64.zip -O android-cmake.zip
+RUN unzip -q android-cmake.zip -d ${ANDROID_HOME}/cmake
+ENV PATH ${PATH}:${ANDROID_HOME}/cmake/bin
+RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
+
+RUN /bin/bash ${ANDROID_NDK}/build/tools/make-standalone-toolchain.sh \
+-arch=arm \
+--platform=android-27 \
+--install-dir=${ANDROID_HOME} \
+
+COPY toolchain.cmake .
