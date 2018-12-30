@@ -16,6 +16,7 @@ RUN apk add cmake \
 RUN cmake -version
 RUN ninja --version
 
+RUN ${ANDROID_HOME}/tools/bin/sdkmanager "extras;android;m2repository" "extras;google;m2repository" "extras;google;google_play_services"
 RUN ${ANDROID_HOME}/tools/bin/sdkmanager "cmake;3.6.4111459"
 
 RUN wget -q --output-document=android-ndk.zip https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip && \
