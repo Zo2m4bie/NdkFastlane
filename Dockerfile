@@ -11,7 +11,8 @@ RUN apk add unzip \
 	
 RUN apk add cmake \
 	make \
-	ninja
+	ninja \
+	ninja-build
 	
 RUN cmake -version
 RUN ninja --version
