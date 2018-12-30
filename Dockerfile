@@ -13,6 +13,9 @@ RUN apk add cmake \
 	make \
 	ninja
 	
+RUN cmake -version
+RUN ninja --version
+
 RUN cd /opt && \
 	wget -q --output-document=android-ndk.zip https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip && \
 	unzip android-ndk.zip && \
