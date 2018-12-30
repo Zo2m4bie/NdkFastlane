@@ -21,3 +21,10 @@ RUN wget -q https://dl.google.com/android/repository/cmake-3.6.3155560-linux-x86
 RUN unzip -q android-cmake.zip -d ${ANDROID_HOME}/cmake
 ENV PATH ${PATH}:${ANDROID_HOME}/cmake/bin
 RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
+
+RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_TARGET_SDK}" && \
+echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter platform-tools && \
+echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_BUILD_TOOLS}"
+RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-android-m2repository && \
+echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-google_play_services && \
+echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-m2repository
