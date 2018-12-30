@@ -8,6 +8,10 @@ ENV ANDROID_TARGET_SDK="android-27" \
 RUN apk update
 RUN apk add unzip \
 	wget
+
+RUN apk add cmake \
+	make \
+	ninja-build 
 	
 RUN cd /opt && \
 	wget -q --output-document=android-ndk.zip https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip && \
@@ -18,15 +22,9 @@ RUN cd /opt && \
 # add to PATH
 ENV PATH ${PATH}:${ANDROID_NDK_HOME}
 
-# Android Cmake
-RUN wget -q https://dl.google.com/android/repository/cmake-3.6.3155560-linux-x86_64.zip -O android-cmake.zip
-RUN unzip -q android-cmake.zip -d ${ANDROID_HOME}/cmake
-ENV PATH ${PATH}:${ANDROID_HOME}/cmake/bin
-RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
+#RUN /bin/bash ${ANDROID_NDK}/build/tools/make-standalone-toolchain.sh \
+#--arch=arm \
+#--platform=android-27 \
+#--install-dir=/opt/android \
 
-RUN echo y | ${ANDROID_HOME}/tools/android update sdk --no-ui --all --filter "${ANDROID_TARGET_SDK}" && \
-echo y | ${ANDROID_HOME}/tools/android update sdk --no-ui --all --filter platform-tools && \
-echo y | ${ANDROID_HOME}/tools/android update sdk --no-ui --all --filter "${ANDROID_BUILD_TOOLS}"
-RUN echo y | ${ANDROID_HOME}/tools/android update sdk --no-ui --all --filter extra-android-m2repository && \
-echo y | ${ANDROID_HOME}/tools/android update sdk --no-ui --all --filter extra-google-google_play_services && \
-echo y | ${ANDROID_HOME}/tools/android update sdk --no-ui --all --filter extra-google-m2repository
+#COPY toolchain.cmake .
