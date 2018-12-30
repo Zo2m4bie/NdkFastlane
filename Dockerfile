@@ -24,9 +24,9 @@ RUN unzip -q android-cmake.zip -d ${ANDROID_HOME}/cmake
 ENV PATH ${PATH}:${ANDROID_HOME}/cmake/bin
 RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
 
-RUN echo y | ${ANDROID_HOME}/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_TARGET_SDK}" && \
-echo y | ${ANDROID_HOME}/tools/android --silent update sdk --no-ui --all --filter platform-tools && \
-echo y | ${ANDROID_HOME}/tools/android --silent update sdk --no-ui --all --filter "${ANDROID_BUILD_TOOLS}"
-RUN echo y | ${ANDROID_HOME}/tools/android --silent update sdk --no-ui --all --filter extra-android-m2repository && \
-echo y | ${ANDROID_HOME}/tools/android --silent update sdk --no-ui --all --filter extra-google-google_play_services && \
-echo y | ${ANDROID_HOME}/tools/android --silent update sdk --no-ui --all --filter extra-google-m2repository
+RUN echo y | ${ANDROID_HOME}/tools/android update sdk --no-ui --all --filter "${ANDROID_TARGET_SDK}" && \
+echo y | ${ANDROID_HOME}/tools/android update sdk --no-ui --all --filter platform-tools && \
+echo y | ${ANDROID_HOME}/tools/android update sdk --no-ui --all --filter "${ANDROID_BUILD_TOOLS}"
+RUN echo y | ${ANDROID_HOME}/tools/android update sdk --no-ui --all --filter extra-android-m2repository && \
+echo y | ${ANDROID_HOME}/tools/android update sdk --no-ui --all --filter extra-google-google_play_services && \
+echo y | ${ANDROID_HOME}/tools/android update sdk --no-ui --all --filter extra-google-m2repository
