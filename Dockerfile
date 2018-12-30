@@ -15,3 +15,9 @@ RUN cd /opt && \
 
 # add to PATH
 ENV PATH ${PATH}:${ANDROID_NDK_HOME}
+
+# Android Cmake
+RUN wget -q https://dl.google.com/android/repository/cmake-3.6.3155560-linux-x86_64.zip -O android-cmake.zip
+RUN unzip -q android-cmake.zip -d ${ANDROID_HOME}/cmake
+ENV PATH ${PATH}:${ANDROID_HOME}/cmake/bin
+RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
