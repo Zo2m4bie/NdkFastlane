@@ -16,25 +16,38 @@ RUN apk add cmake \
 RUN cmake -version
 RUN ninja --version
 
-RUN cd /opt && \
-	wget -q --output-document=android-ndk.zip https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip && \
+
+RUN cd ${ANDROID_HOME} && \
+	wget -q --output-document=sdk-tools.zip https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip && \
+	unzip sdk-tools.zip && \
+	rm -f sdk-tools.zip && \
+	echo y | sdkmanager "build-tools;28.0.3" "platforms;android-28" && \
+	echo y | sdkmanager "extras;android;m2repository" "extras;google;m2repository" "extras;google;google_play_services" && \
+	sdkmanager "cmake;3.6.4111459"
+RUN wget -q --output-document=android-ndk.zip https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip && \
 	unzip android-ndk.zip && \
 	rm -f android-ndk.zip && \
 	mv android-ndk-r18b android-ndk-linux
+
+#RUN cd /opt && \
+#	wget -q --output-document=android-ndk.zip https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip && \
+#	unzip android-ndk.zip && \
+#	rm -f android-ndk.zip && \
+#	mv android-ndk-r18b android-ndk-linux
 
 # add to PATH
 ENV PATH ${PATH}:${ANDROID_NDK_HOME}
 
 
 # Android Cmake
-RUN wget -q https://dl.google.com/android/repository/cmake-3.6.3155560-linux-x86_64.zip -O android-cmake.zip
-RUN unzip -q android-cmake.zip -d ${ANDROID_HOME}/cmake
-ENV PATH ${PATH}:${ANDROID_HOME}/cmake/bin
-RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
+#RUN wget -q https://dl.google.com/android/repository/cmake-3.6.3155560-linux-x86_64.zip -O android-cmake.zip
+#RUN unzip -q android-cmake.zip -d ${ANDROID_HOME}/cmake
+#ENV PATH ${PATH}:${ANDROID_HOME}/cmake/bin
+#RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
 
-RUN /bin/bash ${ANDROID_NDK}/build/tools/make-standalone-toolchain.sh \
--arch=arm \
---platform=android-27 \
---install-dir=${ANDROID_HOME} \
+#RUN /bin/bash ${ANDROID_NDK}/build/tools/make-standalone-toolchain.sh \
+#-arch=arm \
+#--platform=android-27 \
+#--install-dir=/sdk \
 
-COPY toolchain.cmake .
+#COPY toolchain.cmake .
