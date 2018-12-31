@@ -16,7 +16,7 @@ RUN apk add unzip \
 	
 #RUN cmake -version
 #RUN ninja --version
-RUN RUN apk add --update --no-cache libstdc++
+RUN apk add --update --no-cache libstdc++
 RUN wget -q --output-document=ninja-linux.zip https://github.com/ninja-build/ninja/releases/download/v1.6.0/ninja-linux.zip && \
 	unzip ninja-linux.zip && \
 	rm -f ninja-linux.zip
