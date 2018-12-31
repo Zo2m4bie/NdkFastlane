@@ -1,6 +1,7 @@
 FROM reginfell/fastlane
 
 ENV ANDROID_NDK /android-ndk-linux
+ENV NINJA_PATH /ninja
 ENV ANDROID_NDK_HOME /android-ndk-linux
 ENV ANDROID_TARGET_SDK="android-27" \
 	ANDROID_BUILD_TOOLS="build-tools-27.0.3"
@@ -16,6 +17,12 @@ RUN apk add unzip \
 #RUN cmake -version
 #RUN ninja --version
 
+RUN wget -q --output-document=ninja-linux.zip https://github.com/ninja-build/ninja/releases/download/v1.6.0/ninja-linux.zip && \
+	unzip ninja-linux.zip && \
+	rm -f ninja-linux.zip
+
+ENV PATH ${PATH}:${NINJA_PATH}
+RUN ninja --version
 
 RUN wget -q --output-document=android-ndk.zip https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip && \
 	unzip android-ndk.zip && \
