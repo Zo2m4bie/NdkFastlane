@@ -1,8 +1,12 @@
-FROM saschpe/android-sdk:latest
+FROM reginfell/fastlane
 
-ENV NDK_ROOT $ANDROID_SDK_ROOT/ndk-bundle
+ENV ANDROID_NDK /android-ndk-linux
+ENV NINJA_PATH /ninja
+ENV ANDROID_NDK_HOME /android-ndk-linux
+ENV ANDROID_TARGET_SDK="android-27" \
+	ANDROID_BUILD_TOOLS="build-tools-27.0.3"
 
-RUN sdkmanager \
+RUN ${ANDROID_HOME}/tools/bin/sdkmanager \
         "cmake;3.6.4111459" \
         ndk-bundle \
     && rm -rf  \
@@ -27,7 +31,7 @@ RUN sdkmanager \
         # Delete unused toolchains
         $NDK_ROOT/toolchains/mips \
         $NDK_ROOT/build/core/toolchains/mips* \
-    && sdkmanager --list | sed -e '/Available Packages/q'
+    && ${ANDROID_HOME}/tools/bin/sdkmanager --list | sed -e '/Available Packages/q'
 #FROM reginfell/fastlane
 
 #ENV ANDROID_NDK /android-ndk-linux
