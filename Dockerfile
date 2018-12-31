@@ -21,8 +21,8 @@ RUN wget -q --output-document=ninja-linux.zip https://github.com/ninja-build/nin
 	unzip ninja-linux.zip && \
 	rm -f ninja-linux.zip
 
-RUN ${NINJA_PATH} --version
-ENV PATH ${PATH}:${NINJA_PATH}
+RUN /ninja
+#ENV PATH ${PATH}:${NINJA_PATH}
 RUN ninja --version
 
 RUN wget -q --output-document=android-ndk.zip https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip && \
