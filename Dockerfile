@@ -21,6 +21,7 @@ RUN wget -q --output-document=ninja-linux.zip https://github.com/ninja-build/nin
 	unzip ninja-linux.zip && \
 	rm -f ninja-linux.zip
 
+RUN ${NINJA_PATH} --version
 ENV PATH ${PATH}:${NINJA_PATH}
 RUN ninja --version
 
