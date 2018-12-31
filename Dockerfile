@@ -7,9 +7,6 @@ ENV NDK_ROOT $ANDROID_HOME/ndk-bundle
 ENV ANDROID_TARGET_SDK="android-27" \
 	ANDROID_BUILD_TOOLS="build-tools-27.0.3"
 
-# add to PATH
-ENV PATH ${PATH}:${ANDROID_NDK_HOME}
-
 RUN ${ANDROID_HOME}/tools/bin/sdkmanager \
         "cmake;3.6.4111459" \
         ndk-bundle \
@@ -38,6 +35,8 @@ RUN ${ANDROID_HOME}/tools/bin/sdkmanager \
     && ${ANDROID_HOME}/tools/bin/sdkmanager --list | sed -e '/Available Packages/q'
     
 ENV PATH ${PATH}:${ANDROID_NDK_HOME}
+
+RUN echo ${ANDROID_NDK_HOME}
 #FROM reginfell/fastlane
 
 #ENV ANDROID_NDK /android-ndk-linux
