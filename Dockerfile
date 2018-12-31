@@ -9,12 +9,12 @@ RUN apk update
 RUN apk add unzip \
 	wget
 	
-RUN apk add cmake \
-	make \
-	ninja
+#RUN apk add cmake \
+#	make \
+#	ninja
 	
-RUN cmake -version
-RUN ninja --version
+#RUN cmake -version
+#RUN ninja --version
 
 
 RUN wget -q --output-document=android-ndk.zip https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip && \
