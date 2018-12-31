@@ -16,8 +16,6 @@ RUN apk add cmake \
 RUN cmake -version
 RUN ninja --version
 
-RUN ${ANDROID_HOME}/tools/bin/sdkmanager "extras;android;m2repository" "extras;google;m2repository" "extras;google;google_play_services"
-RUN ${ANDROID_HOME}/tools/bin/sdkmanager "cmake;3.6.4111459"
 
 RUN wget -q --output-document=android-ndk.zip https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip && \
 	unzip android-ndk.zip && \
@@ -33,6 +31,9 @@ RUN wget -q --output-document=android-ndk.zip https://dl.google.com/android/repo
 # add to PATH
 ENV PATH ${PATH}:${ANDROID_NDK_HOME}
 
+RUN ${ANDROID_HOME}/tools/bin/sdkmanager "extras;android;m2repository" "extras;google;m2repository" "extras;google;google_play_services"
+RUN ${ANDROID_HOME}/tools/bin/sdkmanager "cmake;3.6.4111459"
+RUN ${ANDROID_HOME}/tools/bin/sdkmanager 'ndk-bundle' 
 
 # Android Cmake
 #RUN wget -q https://dl.google.com/android/repository/cmake-3.6.3155560-linux-x86_64.zip -O android-cmake.zip
