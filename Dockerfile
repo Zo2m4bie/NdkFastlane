@@ -1,6 +1,6 @@
 FROM reginfell/fastlane
 
-ENV ANDROID_NDK /android-ndk-linux
+ENV ANDROID_NDK $ANDROID_HOME/ndk-bundle
 ENV NINJA_PATH /ninja
 ENV ANDROID_NDK_HOME $ANDROID_HOME/ndk-bundle
 ENV NDK_ROOT $ANDROID_HOME/ndk-bundle
