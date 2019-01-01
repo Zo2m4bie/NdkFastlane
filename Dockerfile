@@ -3,6 +3,8 @@ FROM reginfell/fastlane
 ENV ANDROID_NDK $ANDROID_HOME/ndk-bundle
 ENV NINJA_PATH /ninja
 ENV ANDROID_NDK_HOME $ANDROID_HOME/ndk-bundle
+ENV ANDROID_NDK_ROOT $ANDROID_HOME/ndk-bundle
+ENV NDK_HOME $ANDROID_HOME/ndk-bundle
 ENV NDK_ROOT $ANDROID_HOME/ndk-bundle
 ENV ANDROID_TARGET_SDK="android-27" \
 	ANDROID_BUILD_TOOLS="build-tools-27.0.3"
@@ -35,6 +37,9 @@ RUN ${ANDROID_HOME}/tools/bin/sdkmanager \
     && ${ANDROID_HOME}/tools/bin/sdkmanager --list | sed -e '/Available Packages/q'
     
 ENV PATH ${PATH}:${ANDROID_NDK_HOME}
+ENV PATH ${PATH}:${NDK_HOME}
+ENV PATH ${PATH}:${NDK_ROOT}
+ENV PATH ${PATH}:${ANDROID_NDK_ROOT}
 
 RUN echo ${ANDROID_NDK_HOME}
 #FROM reginfell/fastlane
