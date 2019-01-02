@@ -41,6 +41,7 @@ ENV PATH ${PATH}:${NDK_HOME}
 ENV PATH ${PATH}:${NDK_ROOT}
 ENV PATH ${PATH}:${ANDROID_NDK_ROOT}
 
+RUN echo ${PATH}
 RUN echo ${ANDROID_NDK_HOME}
 #FROM reginfell/fastlane
 
