@@ -31,4 +31,3 @@ RUN yes | sdkmanager --licenses > /dev/null \
 
 RUN yes | sdkmanager 'cmake;'$ANDROID_CMAKE_REV \
 && yes | sdkmanager 'ndk-bundle' 
-ninja --version
