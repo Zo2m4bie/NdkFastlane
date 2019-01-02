@@ -36,13 +36,8 @@ RUN ${ANDROID_HOME}/tools/bin/sdkmanager \
         $NDK_ROOT/build/core/toolchains/mips* \
     && ${ANDROID_HOME}/tools/bin/sdkmanager --list | sed -e '/Available Packages/q'
     
-ENV PATH ${PATH}:${ANDROID_NDK_HOME}
-ENV PATH ${PATH}:${NDK_HOME}
-ENV PATH ${PATH}:${NDK_ROOT}
-ENV PATH ${PATH}:${ANDROID_NDK_ROOT}
+ENV PATH ${ANDROID_NDK_HOME}:${PATH}
 
-RUN echo ${PATH}
-RUN echo ${ANDROID_NDK_HOME}
 #FROM reginfell/fastlane
 
 #ENV ANDROID_NDK /android-ndk-linux
