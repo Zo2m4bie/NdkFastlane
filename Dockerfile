@@ -35,8 +35,7 @@ RUN yes | sdkmanager --licenses > /dev/null \
 RUN yes | sdkmanager 'cmake;'$ANDROID_CMAKE_REV \
 && yes | sdkmanager 'ndk-bundle' 
 
-RUN apt-get install --no-cache add \
-        curl \
+RUN apt-get install curl \
         python \
         py-crcmod \
         openssh-client \
