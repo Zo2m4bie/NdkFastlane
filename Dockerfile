@@ -16,7 +16,7 @@ apt-get install -y file && \
 rm -rf /var/lib/apt/lists/*
 
 RUN apt-get install curl \
-        python-dev \
+        python \
         python-setuptools \
         openssh-client \
         git \
