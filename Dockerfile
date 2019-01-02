@@ -17,7 +17,6 @@ rm -rf /var/lib/apt/lists/*
 
 RUN apt-get install curl \
         python \
-        python-setuptools \
         openssh-client \
         git \
     && curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
