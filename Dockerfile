@@ -1,71 +1,34 @@
-FROM reginfell/fastlane
+FROM openjdk:8-jdk
 
-ENV ANDROID_NDK $ANDROID_HOME/ndk-bundle
-ENV NINJA_PATH /ninja
-ENV ANDROID_NDK_HOME $ANDROID_HOME/ndk-bundle
-ENV ANDROID_NDK_ROOT $ANDROID_HOME/ndk-bundle
-ENV NDK_HOME $ANDROID_HOME/ndk-bundle
-ENV NDK_ROOT $ANDROID_HOME/ndk-bundle
-ENV ANDROID_TARGET_SDK="android-27" \
-	ANDROID_BUILD_TOOLS="build-tools-27.0.3"
+ENV ANDROID_COMPILE_SDK="27" \
+ANDROID_BUILD_TOOLS="28.0.3" \
+ANDROID_SDK_TOOLS_REV="4333796" \
+ANDROID_CMAKE_REV="3.6.4111459"
 
-RUN ${ANDROID_HOME}/tools/bin/sdkmanager \
-        "cmake;3.6.4111459" \
-        ndk-bundle \
-    && rm -rf  \
-        # Delete simpleperf tool
-        $NDK_ROOT/simpleperf \
-        # Delete STL version we don't care about
-        $NDK_ROOT/sources/cxx-stl/stlport \
-        $NDK_ROOT/sources/cxx-stl/gnu-libstdc++ \
-        # Delete unused prebuild images
-        $NDK_ROOT/prebuilt/android-mips* \
-        # Delete obsolete Android platforms
-        $NDK_ROOT/platforms/android-9 \
-        $NDK_ROOT/platforms/android-12 \
-        $NDK_ROOT/platforms/android-13 \
-        $NDK_ROOT/platforms/android-15 \
-        $NDK_ROOT/platforms/android-16 \
-        # Delete unused platform sources
-        $NDK_ROOT/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips* \
-        $NDK_ROOT/sources/cxx-stl/llvm-libc++/libs/mips* \
-        # Delete LLVM STL tests
-        $NDK_ROOT/sources/cxx-stl/llvm-libc++/test \
-        # Delete unused toolchains
-        $NDK_ROOT/toolchains/mips \
-        $NDK_ROOT/build/core/toolchains/mips* \
-    && ${ANDROID_HOME}/tools/bin/sdkmanager --list | sed -e '/Available Packages/q'
-    
-ENV PATH ${ANDROID_NDK_HOME}:${PATH}
+ENV ANDROID_HOME=/opt/android-sdk-linux
+ENV PATH ${PATH}:${ANDROID_HOME}/platform-tools/:${ANDROID_NDK_HOME}:${ANDROID_HOME}/ndk-bundle:${ANDROID_HOME}/tools/bin/
 
-#FROM reginfell/fastlane
+RUN apt-get update && \
+apt-get install -y file && \
+rm -rf /var/lib/apt/lists/*
 
-#ENV ANDROID_NDK /android-ndk-linux
-#ENV NINJA_PATH /ninja
-#ENV ANDROID_NDK_HOME /android-ndk-linux
-#ENV ANDROID_TARGET_SDK="android-27" \
-#	ANDROID_BUILD_TOOLS="build-tools-27.0.3"
+RUN mkdir -p ${ANDROID_HOME} \
+&& wget --quiet --output-document=${ANDROID_HOME}/android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS_REV}.zip \
+&& unzip -qq ${ANDROID_HOME}/android-sdk.zip -d ${ANDROID_HOME} \
+&& rm ${ANDROID_HOME}/android-sdk.zip \
+&& mkdir -p $HOME/.android \
+&& echo 'count=0' > $HOME/.android/repositories.cfg
 
-#RUN apk update
-#RUN apk add unzip \
-#	wget
-	
-#RUN apk add --update --no-cache libstdc++
-#RUN wget -q --output-document=ninja-linux.zip https://github.com/ninja-build/ninja/releases/download/v1.6.0/ninja-linux.zip && \
-#	unzip ninja-linux.zip && \
-#	rm -f ninja-linux.zip
+RUN yes | sdkmanager --licenses > /dev/null \ 
+ && yes | sdkmanager --update \
+&& yes | sdkmanager 'tools' \
+&& yes | sdkmanager 'platform-tools' \
+&& yes | sdkmanager 'build-tools;'$ANDROID_BUILD_TOOLS \
+&& yes | sdkmanager 'platforms;android-'$ANDROID_COMPILE_SDK \
+&& yes | sdkmanager 'extras;android;m2repository' \
+&& yes | sdkmanager 'extras;google;google_play_services' \
+&& yes | sdkmanager 'extras;google;m2repository' 
 
-#RUN /ninja
-#RUN ninja --version
-
-#RUN wget -q --output-document=android-ndk.zip https://dl.google.com/android/repository/android-ndk-r18b-linux-x86_64.zip && \
-#	unzip android-ndk.zip && \
-#	rm -f android-ndk.zip && \
-#	mv android-ndk-r18b android-ndk-linux
-
-# add to PATH
-#ENV PATH ${PATH}:${ANDROID_NDK_HOME}
-
-#RUN ${ANDROID_HOME}/tools/bin/sdkmanager "extras;android;m2repository" "extras;google;m2repository" "extras;google;google_play_services"
-#RUN ${ANDROID_HOME}/tools/bin/sdkmanager "cmake;3.6.4111459"
-#RUN ${ANDROID_HOME}/tools/bin/sdkmanager 'ndk-bundle' 
+RUN yes | sdkmanager 'cmake;'$ANDROID_CMAKE_REV \
+&& yes | sdkmanager 'ndk-bundle' 
+ninja --version
