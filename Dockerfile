@@ -42,7 +42,6 @@ ENV PATH ${PATH}:${NDK_ROOT}
 ENV PATH ${PATH}:${ANDROID_NDK_ROOT}
 
 RUN echo ${ANDROID_NDK_HOME}
-
 #FROM reginfell/fastlane
 
 #ENV ANDROID_NDK /android-ndk-linux
