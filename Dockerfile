@@ -36,6 +36,7 @@ RUN mkdir -p ${ANDROID_HOME} \
 && echo 'count=0' > $HOME/.android/repositories.cfg
 
 RUN yes | sdkmanager --licenses > /dev/null \ 
+&& yes | sdkmanager --licenses \
  && yes | sdkmanager --update \
 && yes | sdkmanager 'tools' \
 && yes | sdkmanager 'platform-tools' \
@@ -43,7 +44,8 @@ RUN yes | sdkmanager --licenses > /dev/null \
 && yes | sdkmanager 'platforms;android-'$ANDROID_COMPILE_SDK \
 && yes | sdkmanager 'extras;android;m2repository' \
 && yes | sdkmanager 'extras;google;google_play_services' \
-&& yes | sdkmanager 'extras;google;m2repository' 
+&& yes | sdkmanager 'extras;google;m2repository' \
+&& yes | sdkmanager --licenses
 
 RUN yes | sdkmanager 'cmake;'$ANDROID_CMAKE_REV \
 && yes | sdkmanager 'ndk-bundle' 
